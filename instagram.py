@@ -7,12 +7,16 @@ def downloadImage(url):
 
 def isInstagramUrl(url):
     # Here, we haven't considered the case that there might be loads of text along with an instagram url.
-    pattern = '(.*?)instagram.com/p/(.*?)\/'
-    if(re.match(pattern,url)):
+    # pattern = '(.*?)instagram.com/p/(.*?)\/'
+    # pattern = '(http.*?)instagram\.com\/p\/(.*?)\/'
+    pattern = r"(http.*?)instagram\.com\/p\/(.*?)\/"
+    if(re.search(pattern,url)):
         return True
     else:
         return False
 def getImageLink(url):
+    pattern = r"(http.*?)instagram\.com\/p\/(.*?)\/" #instagram link pattern
+    url = re.search(pattern,url).group() #getting only the link part of the instagram document
     regular_expression = '\<meta property=\"og:image\" content\=\"(.*?)\"'
     # via some regex, we can also get the caption of the image
     response = requests.get(url)
@@ -23,5 +27,8 @@ def getImageLink(url):
     return image_url
 
 if __name__ == '__main__':
-    print(isInstagramUrl('https://www.instagram.com/'))
-    print(isInstagramUrl('https://www.instagram.com/p/B3uih6LHfZ7/'))
+    # print(isInstagramUrl('https://www.instagram.com/'))
+    # print(isInstagramUrl('https://www.instagram.com/p/B3uih6LHfZ7/'))
+    link = isInstagramUrl('See this Instagram photo by @alexandradaddario https://www.instagram.com/p/B-K_YculIpH/?utm_source=ig_web_button_native_share')
+    if(link):
+        print('should work')
