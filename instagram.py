@@ -16,7 +16,7 @@ def isInstagramUrl(url):
         return False
 def getImageLink(url):
     pattern = r"(http.*?)instagram\.com\/p\/(.*?)\/" #instagram link pattern
-    url = re.search(pattern,url) #getting only the link part of the instagram document
+    url = re.search(pattern,url).group() #getting only the link part of the instagram document
     regular_expression = '\<meta property=\"og:image\" content\=\"(.*?)\"'
     # via some regex, we can also get the caption of the image
     response = requests.get(url)
