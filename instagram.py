@@ -7,9 +7,11 @@ def downloadImage(url):
 
 def isInstagramUrl(url):
     # Here, we haven't considered the case that there might be loads of text along with an instagram url.
-    pattern = '(.*?)instagram.com/p/(.*?)\/'
-    if(re.match(pattern,url)):
-        return True
+    # pattern = '(.*?)instagram.com/p/(.*?)\/'
+    # pattern = '(http.*?)instagram\.com\/p\/(.*?)\/'
+    pattern = r"(http.*?)instagram\.com\/p\/(.*?)\/"
+    if(re.search(pattern,url)):
+        return(re.search(pattern,url).group())
     else:
         return False
 def getImageLink(url):
@@ -25,3 +27,4 @@ def getImageLink(url):
 if __name__ == '__main__':
     print(isInstagramUrl('https://www.instagram.com/'))
     print(isInstagramUrl('https://www.instagram.com/p/B3uih6LHfZ7/'))
+    print(isInstagramUrl('See this Instagram photo by @alexandradaddario https://www.instagram.com/p/B-K_YculIpH/?utm_source=ig_web_button_native_share'))
