@@ -6,13 +6,11 @@ from app import BOT_URL
 def parse_message(string, id):
     #check for instagram link
 	if(isInstagramUrl(string)):
-		send_chat_action(id,0)
 		image_url = getImageLink(string) #get url of the image
 		downloadImage(image_url) # download the image in images/test.jpg
 		print(send_photo(id,'./images/test.jpg')) # send the photo to the user
     #check for youtube link
 	elif(isYoutubeUrl(string)):
-		print(send_chat_action(id,1))
 		file_location = downloadYoutubeVideo(url=string)
 		if(file_location):
 			print(send_video(id,file_location))
@@ -29,11 +27,6 @@ def get_chat_data(dictData):
 	message_text = dictData['message']['text']
 	return(current_chat_id, name, message_text)
 
-def send_chat_action(chatId, type):
-	action_type = ['upload_photo', 'upload_video', 'upload_audio', 'upload_document']
-	message_url = BOT_URL + 'sendChatAction'
-	action = action_type[type]
-	return (requests.post(message_url + '?chat_id={}'.format(chatId), action=action))
 # send a text message to the user
 def send_message(chatId, message):
 	message_url = BOT_URL + 'sendMessage'
