@@ -32,11 +32,8 @@ def get_chat_data(dictData):
 def send_chat_action(chatId, type):
 	action_type = ['upload_photo', 'upload_video', 'upload_audio', 'upload_document']
 	message_url = BOT_URL + 'sendChatAction'
-	json_data = {
-        "chat_id": chatId,
-        "text": action_type[type],
-    }
-	return (requests.post(message_url, json=json_data))
+	action = {'action': action_type[type]}
+	return (requests.post(message_url + '?chat_id={}'.format(chatId), action=action))
 # send a text message to the user
 def send_message(chatId, message):
 	message_url = BOT_URL + 'sendMessage'
