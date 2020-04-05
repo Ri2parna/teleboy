@@ -12,7 +12,7 @@ def parse_message(string, id):
 		print(send_photo(id,'./images/test.jpg')) # send the photo to the user
     #check for youtube link
 	elif(isYoutubeUrl(string)):
-		send_chat_action(id,1)
+		print(send_chat_action(id,1))
 		file_location = downloadYoutubeVideo(url=string)
 		if(file_location):
 			print(send_video(id,file_location))
