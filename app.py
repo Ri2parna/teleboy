@@ -12,8 +12,25 @@
 	message_text = dictData-->message-->text
 
 """
+# ----------------------------------- GET ENVIRONMENT VARIABLES --------------------------------
+
+# for reading environment variables provided without revealing the code
+from os.path import join, dirname
+
+ENV_VARIABLES = dict();
+def process_and_add(key, values):
+    if(ENV_VARIABLES.get(key)):
+        pass
+    else:
+        ENV_VARIABLES.update({key: value.strip("\"")})
+
+with open(join(dirname(__file__), ".env")) as f:
+    for lines in f:
+        key, value = lines.strip().split("=")
+        process_and_add(key, value)
+
 # -----------------------------------IMPORTS AND LIBRARIES--------------------------------
-BOT_URL = 'https://api.telegram.org/bot1135130528:AAG9gKH4NGjRZVlnZpT9DuSZ6W_tsVhcOQw/'
+BOT_URL = ENV_VARIABLES.get('BOT_URL'); 
 from flask import Flask, request, jsonify
 import requests
 from bot_functions import *

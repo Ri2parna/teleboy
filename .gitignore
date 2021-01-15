@@ -1,5 +1,7 @@
+.venv/
 flask-env/
 ngrok
 __pycache__/
 .vscode/
 
+.env
